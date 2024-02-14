@@ -69,6 +69,12 @@ function App() {
     setFilteredExpenses(filtered);
   }, [expenses, searchTerm]);
 
+  const handleDelete = (index) => {
+    const newExpenses = [...expenses];
+    newExpenses.splice(index, 1);
+    setExpenses(newExpenses);
+  };
+
   return (
     <div>
       <h1>Add Expenses</h1>
@@ -93,6 +99,7 @@ function App() {
 
       {/* Below history is the search box */}
       <h2>HISTORY</h2>
+      
       <input
         type="text"
         placeholder="Search expenses..."
@@ -102,17 +109,27 @@ function App() {
 
       {/* the filteredExpenses.map will show the filtered results
     if no searching happens then the array will contain all expenses */}
-      {filteredExpenses.map((expense, index) => (
-        <ExpenseItem
-          key={index}
-          description={expense.description}
-          category={expense.category}
-          amount={expense.amount}
-          date={expense.date}
-        />
+     {filteredExpenses.map((expense, index) => (
+        <div key={index}>
+          <ExpenseItem
+            description={expense.description}
+            category={expense.category}
+            amount={expense.amount}
+            date={expense.date}
+            onDelete={() => handleDelete(index)}
+          />
+        
+        </div>
       ))}
+
+     
+ 
+
+{/* (filteredExpenses.map((expenses, index)) = {
+  return <expenses expenses={expenses.expenses} deleteExpense={deleteExpense}index={index } />
+ })*/}
     </div>
-  );
-}
+  
+)}
 
 export default App;

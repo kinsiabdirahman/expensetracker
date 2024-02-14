@@ -1,3 +1,6 @@
+import React from "react";
+import "../ExpenseItem.css"
+
 function ExpenseItem(props) {
     const { description, amount, date, category, onDelete } = props;
   
@@ -6,15 +9,15 @@ function ExpenseItem(props) {
     };
   
     return (
-      <div>
-        <div>{description}</div>
-        <div>{amount}</div>
-        <div>{category}</div>
-        <div>{date}</div>
-        <br />
+      <tr className="items">
+        <td>{description}</td>
+        <td>{category}</td>
+        <td>{amount}</td>
+        <td>{date}</td>
+        
         <button onClick={handleDelete}>Delete</button>
-      </div>
+        </tr>
     );
   }
   
-  export default ExpenseItem;
+  export default ExpenseItem;

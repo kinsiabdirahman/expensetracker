@@ -1,10 +1,11 @@
 import React from "react";
+import "../TotalExpenseContainer.css"
 
 function TotalExpensesContainer({ totalExpenses }) {
   return (
-    <div>
+    <div className="TotalExpenseContainer">
       <h3>Total Expenses</h3>
-      <div>{totalExpenses}</div>
+      <div><h2>{totalExpenses}</h2></div>
     </div>
   );
 }

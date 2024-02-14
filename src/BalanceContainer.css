@@ -1,0 +1,24 @@
+.BalanceContainer {
+    background-color: #9DD0ED;
+    color: #061065;
+    text-align: left;
+    max-height: 100px;
+    width: 300px;
+    border-radius: 10px;
+    font-size: 23.5px;
+    font-weight: 600;
+    text-overflow: ellipsis;
+    padding-left: 20px;
+    margin: 0 10px 0 10px;
+}
+
+.BalanceContainer h3{
+    display: inline-block;
+    margin: 0px;
+    text-overflow: ellipsis;
+}
+
+.BalanceContainer div h2{
+    display: block;
+    margin: 0;
+  }

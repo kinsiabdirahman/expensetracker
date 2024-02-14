@@ -3,6 +3,7 @@ import ExpenseItem from "./components/ExpenseItem";
 import IncomeContainer from "./components/IncomeContainer";
 import BalanceContainer from "./components/BalanceContainer";
 import TotalExpensesContainer from "./components/TotalExpensesContainer";
+import "./App.css"
 
 function App() {
     //state to store expenses
@@ -76,60 +77,83 @@ function App() {
   };
 
   return (
-    <div>
-      <h1>Add Expenses</h1>
-
-      {/* This holds Income Container */}
-      <IncomeContainer income={income} onIncomeChange={handleIncomeChange} />
-
-      {/* This Holds Available Balance Container */}
-      <BalanceContainer income={income} totalExpenses={calculateTotalExpenses()} />
-
-      {/* This Holds Total Expenses Container */}
-      <TotalExpensesContainer totalExpenses={calculateTotalExpenses()} />
-
-      {/* This Holds Add Expenses Form */}
-      <form onSubmit={(event) => handleSubmit(event)}>
-        <input type="text" name="description" placeholder="Enter a brief description" />
-        <input type="text" name="category" placeholder="Basics, Leisure, Savings" />
-        <input type="number" name="amount" placeholder="Enter an amount" />
-        <input type="date" name="date" placeholder="Enter the date" />
-        <button type="submit">Add</button>
-      </form>
-
-      {/* Below history is the search box */}
-      <h2>HISTORY</h2>
-      
-      <input
-        type="text"
-        placeholder="Search expenses..."
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-      />
-
-      {/* the filteredExpenses.map will show the filtered results
-    if no searching happens then the array will contain all expenses */}
-     {filteredExpenses.map((expense, index) => (
-        <div key={index}>
-          <ExpenseItem
-            description={expense.description}
-            category={expense.category}
-            amount={expense.amount}
-            date={expense.date}
-            onDelete={() => handleDelete(index)}
-          />
-        
-        </div>
-      ))}
-
-     
- 
-
-{/* (filteredExpenses.map((expenses, index)) = {
-  return <expenses expenses={expenses.expenses} deleteExpense={deleteExpense}index={index } />
- })*/}
-    </div>
+    <div className="App" >
+        <header>
+            <h1>BUDGET PLANNER</h1>
+        </header>
   
-)}
+        <div className="summaryDiv">
+            {/* This holds Income Container */}
+            <IncomeContainer income={income} onIncomeChange={handleIncomeChange} />
+            
+            {/* This Holds Available Balance Container */}
+            <BalanceContainer income={income} totalExpenses={calculateTotalExpenses()} />
+            
+            {/* This Holds Total Expenses Container */}
+            <TotalExpensesContainer totalExpenses={calculateTotalExpenses()} />
+        </div>
+        
+        {/* This Holds Add Expenses Form */}
+        <div className="expensesDiv">
+            <h2>ADD EXPENSES</h2>
+            <div className="expenses">
+                <form onSubmit ={handleSubmit}>
+                    <div className="inputDiv"><p>Description</p><input type ='test' name ="description" placeholder="Enter a brief description"/></div>
+                    <div className="inputDiv"><p>Category</p><input type ='test' name ="category" placeholder="Basics, Leisure, Savings"/></div>
+                    <div className="inputDiv"><p>Amount</p><input type ='number' name ="amount" placeholder="Enter an amount"/></div>
+                    <div className="inputDiv"><p>Date</p><input type ='date' name ="date" placeholder="Enter the date"/></div>
+                    <button type ='submit'>Add</button>
+                </form>
+            </div>
+        </div>
+
+        {/* This displays transaction history */}
+        <div className="historyDiv">
+            <h2>HISTORY</h2>
+            
+            {/* Search box*/}
+            <div>
+            <input
+              className="search"
+              type="text"
+              placeholder="Search expenses..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              />
+            </div>
+              
+              {/* The filteredExpenses holds the filtered results 
+              if no searching happens then the array will contain all expenses */}
+            <div className="history">
+            <table className='table'>
+              <thead>
+                <tr>
+                  <th>Description</th>
+                  <th>Category</th>
+                  <th>Amount</th>
+                  <th>Date</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                {filteredExpenses.map((expense, index) => (
+                    <ExpenseItem
+                      key={index}
+                      description={expense.description}
+                      category={expense.category}
+                      amount={expense.amount}
+                      date={expense.date}
+                      onDelete={() => handleDelete(index)}
+                      />
+                ))}
+              </tbody>
+            </table>
+            </div>
+        </div>
+    </div>
+
+  )}
+  
+
 
 export default App;

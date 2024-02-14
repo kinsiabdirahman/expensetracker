@@ -1,5 +1,6 @@
 // IncomeContainer.js
 import React, { useState } from "react";
+import "../IncomeContainer.css"
 
 function IncomeContainer({ income, onIncomeChange }) {
     //setting state to manage editing & new income 
@@ -23,16 +24,17 @@ function IncomeContainer({ income, onIncomeChange }) {
   };
 
   return (
-    <div>
-      <h2>
-        Income:{" "}
+    <div className="IncomeContainer">
+      <div className='text'>
+      <h3>
+        Income {" "}</h3>
         {isEditing ? (
           <input type="number" value={newIncome} onChange={handleChange} />
         ) : (
           // displaying the income value
-          <span>{income}</span>
+          <div><h2>{income}</h2></div>
         )}
-      </h2>
+      </div>
       {/* to edit or do done  */}
       {!isEditing ? (
         <button onClick={handleEditClick}>Edit</button>

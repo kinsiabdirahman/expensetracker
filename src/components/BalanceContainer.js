@@ -1,5 +1,5 @@
 import React from "react";
-import "../BalanceContainer.css"
+import '../BalanceContainer.css';
 
 function BalanceContainer({ income, totalExpenses }) {
   const availableBalance = income - totalExpenses;

@@ -1,6 +1,6 @@
 // IncomeContainer.js
 import React, { useState } from "react";
-import "../IncomeContainer.css"
+import '../IncomeContainer.css';
 
 function IncomeContainer({ income, onIncomeChange }) {
   //setting state to manage editing & new income

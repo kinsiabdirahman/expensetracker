@@ -2,11 +2,11 @@
 import React, { useState } from "react";
 
 function IncomeContainer({ income, onIncomeChange }) {
-    //setting state to manage editing & new income 
+  //setting state to manage editing & new income
   const [isEditing, setEditing] = useState(false);
   const [newIncome, setNewIncome] = useState(income);
 
- //when 'EDIT' button is clicked
+  //when 'EDIT' button is clicked
   const handleEditClick = () => {
     setEditing(true);
   };

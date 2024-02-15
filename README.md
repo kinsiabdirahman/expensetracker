@@ -1,5 +1,4 @@
 # EXPENSE TRACKER
-![expenseTracker](https://github.com/kinsiabdirahman/expensetracker/assets/152480311/10c220f0-bb67-4dcd-92eb-1057f769b5b9)
 ![expense tracker web shot](https://github.com/kinsiabdirahman/expensetracker/blob/development/expenseTracker.jpeg?raw=true)
 
 
@@ -14,6 +13,10 @@ HTML, JS, React, Vercel, CSS
 Fork and clone this repo into your local machine. Navigate to the project directory and run `$ npm start`.
 
 ## Project Structure
+One HTML file `index.html`
+Five components `App.js` `IncomeContainer.js` `BalanceContainer.js` `TotalExpenseContainer.js` and `ExpenseContainer.js` 
+API hosted on [Vercel](https://projbackend-idpk.vercel.app/expenses)
+
 ```bash
 └── src
     ├── components
@@ -32,7 +35,7 @@ Fork and clone this repo into your local machine. Navigate to the project direct
 ```
 
 # Authors
-Kinsi Ali
-Jonathan
-Jonah
+Kinsi Abdirahman
+Jonathan Kutumbakana
+Jonah Kayiwa
 Allan Kariuki

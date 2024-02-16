@@ -1,5 +1,5 @@
 # EXPENSE TRACKER
-![expense tracker web shot](https://github.com/kinsiabdirahman/expensetracker/blob/development/expenseTracker.jpeg?raw=true)
+
 
 
 Expense Tracker is a user-friendly personal financial app designed to manage user's finances effectively. 

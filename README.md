@@ -4,6 +4,10 @@ Expense Tracker is a user-friendly personal financial app designed to manage use
 
 To help users get a better understanding of their expenses, Expense Tracker allows users to input their income, they can see their available balance as well as their total expenses. When users add expenses it is immediately reflected on the history tab and updated on their local balance and total expenses. Their finances are allocated into various categories such as basics and leisure thus aiding users in identifying finances they can cut back on.
 
+# LINK TO DEPLOYED FRONT END
+https://expensetracker-steel.vercel.app/
+
+
 ## Developed By;
 
 HTML, JS, React, Vercel, CSS

@@ -1,5 +1,5 @@
-import React from "react";
-import "../BalanceContainer.css";
+import '../BalanceContainer.css';
+
 
 function BalanceContainer({ income, totalExpenses }) {
   const availableBalance = income - totalExpenses;
@@ -8,7 +8,7 @@ function BalanceContainer({ income, totalExpenses }) {
     <div className="BalanceContainer">
       <h3>Available Balance</h3>
       <div>
-        <h2>{availableBalance}</h2>
+        <h2>{availableBalance.toLocaleString('en-US')}</h2>
       </div>
     </div>
   );

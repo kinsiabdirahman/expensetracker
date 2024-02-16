@@ -1,41 +1,44 @@
-// IncomeContainer.js
 import React, { useState } from "react";
-import '../IncomeContainer.css';
+import "../IncomeContainer.css"; 
 
 function IncomeContainer({ income, onIncomeChange }) {
-  //setting state to manage editing & new income
+  // Setting state to manage editing & new income
   const [isEditing, setEditing] = useState(false);
   const [newIncome, setNewIncome] = useState(income);
 
-  //when 'EDIT' button is clicked
+  // When 'EDIT' button is clicked
   const handleEditClick = () => {
     setEditing(true);
   };
 
-  //when done button is clicked
+  // When 'Done' button is clicked
   const handleDoneClick = () => {
     setEditing(false);
     onIncomeChange(newIncome);
   };
 
-  // Fhandling changes
+  // Handling changes
   const handleChange = (event) => {
     setNewIncome(event.target.value);
   };
 
+  // Format income with commas
+  const formattedIncome = newIncome.toLocaleString("en-US");
+
   return (
     <div className="IncomeContainer">
-      <div className='text'>
-      <h3>
-        Income {" "}</h3>
+      <div className="text">
+        <h3>Monthly income </h3>
         {isEditing ? (
           <input type="number" value={newIncome} onChange={handleChange} />
         ) : (
-          // displaying the income value
-          <div><h2>{income}</h2></div>
+          // Displaying the income value with commas
+          <div>
+            <h2>{formattedIncome}</h2>
+          </div>
         )}
       </div>
-      {/* to edit or do done  */}
+      {/* To edit or do done */}
       {!isEditing ? (
         <button onClick={handleEditClick}>Edit</button>
       ) : (

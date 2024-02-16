@@ -3,23 +3,38 @@ import ExpenseItem from "./components/ExpenseItem";
 import IncomeContainer from "./components/IncomeContainer";
 import BalanceContainer from "./components/BalanceContainer";
 import TotalExpensesContainer from "./components/TotalExpensesContainer";
-import "./App.css"
+import ExpenseChart from "./components/ExpenseChart";
+import DownloadButton from "./components/DownloadButton";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faMoneyBillWave,
+  faChartPie,
+  faHouse,
+  faFolderOpen,
+  faBell,
+  faRightFromBracket,
+} from "@fortawesome/free-solid-svg-icons";
+
+import "./App.css";
+
+import "./sidebar.css";
 
 function App() {
-    //state to store expenses
+  // State to store expenses
   const [expenses, setExpenses] = useState([]);
-  //state to store income
+  // State to store income
   const [income, setIncome] = useState(90000);
-  //state to store filtered expense
+  // State to store filtered expenses
   const [searchTerm, setSearchTerm] = useState("");
-  //state to storing filtered expense
+  // State to store filtered expenses
   const [filteredExpenses, setFilteredExpenses] = useState([]);
 
-//this points to fetchExpensesData(); and will ensure that it is called once
+  // Fetch expenses data when the component mounts
   useEffect(() => {
     fetchExpensesData();
   }, []);
 
+  // Function to fetch expenses data from the server
   const fetchExpensesData = () => {
     fetch("https://projbackend-idpk.vercel.app/expenses")
       .then((resp) => resp.json())
@@ -27,22 +42,26 @@ function App() {
       .catch((error) => console.error("Error fetching expenses data:", error));
   };
 
+  // Function to add a new expense
   const addExpense = (expense) => {
     setExpenses((prevExpenses) => [...prevExpenses, expense]);
-    // If successful, show prompt that it was added
     alert("Expense successfully added!");
   };
 
-  //to calc total expenses
+  // Function to calculate total expenses
   const calculateTotalExpenses = () => {
-    return expenses.reduce((total, expense) => total + parseFloat(expense.amount), 0);
+    return expenses.reduce(
+      (total, expense) => total + parseFloat(expense.amount),
+      0
+    );
   };
 
-  //to set new income
+  // Function to handle changes in income
   const handleIncomeChange = (newIncome) => {
     setIncome(parseFloat(newIncome));
   };
 
+  // Function to handle the form submission for adding expenses
   const handleSubmit = (event) => {
     event.preventDefault();
     const description = event.target.description.value;
@@ -59,101 +78,187 @@ function App() {
     event.target.reset();
   };
 
+  // Effect to filter expenses based on search term
   useEffect(() => {
     const filtered = expenses.filter((expense) =>
       Object.values(expense).some(
         (field) =>
-          typeof field === 'string' &&
+          typeof field === "string" &&
           field.toLowerCase().includes(searchTerm.toLowerCase())
       )
     );
     setFilteredExpenses(filtered);
   }, [expenses, searchTerm]);
 
+  // Function to handle expense deletion
   const handleDelete = (index) => {
     const newExpenses = [...expenses];
     newExpenses.splice(index, 1);
     setExpenses(newExpenses);
   };
 
+  const [isSidebarActive, setIsSidebarActive] = useState(false);
+
+  const toggleSidebar = () => {
+    setIsSidebarActive(!isSidebarActive);
+  };
+
   return (
-    <div className="App" >
+    <div className={`app-container ${isSidebarActive ? "sidebar-active" : ""}`}>
+      {/* Sidebar */}
+      <div className="sidebar">
+        <div className="logo-details">
+          <FontAwesomeIcon icon={faMoneyBillWave} style={{ color: "white" }} />
+          <span className="logo_name">COINMATE</span>
+        </div>
+        <ul className="nav-links">
+          <li onClick={toggleSidebar}>
+            <div>
+              <FontAwesomeIcon icon={faHouse} style={{ marginLeft: "20px" }} />{" "}
+              <span className="links_name">Home</span>
+            </div>
+          </li>
+          <li onClick={toggleSidebar}>
+            <div>
+              <FontAwesomeIcon
+                icon={faChartPie}
+                style={{ marginLeft: "20px" }}
+              />
+              <span className="links_name">Statistics</span>
+            </div>
+          </li>
+          <li onClick={toggleSidebar}>
+            <div>
+              <FontAwesomeIcon
+                icon={faFolderOpen}
+                style={{ marginLeft: "20px" }}
+              />
+              <span className="links_name">Resources</span>
+            </div>
+          </li>
+          <li onClick={toggleSidebar}>
+            <div>
+              <FontAwesomeIcon icon={faBell} style={{ marginLeft: "20px" }} />
+              <span className="links_name">Notifications</span>
+            </div>
+          </li>
+          <li onClick={toggleSidebar}>
+            <div>
+              <FontAwesomeIcon
+                icon={faRightFromBracket}
+                style={{ marginLeft: "20px", marginTop: "800px" }}
+              />
+              <span className="links_name" style={{ marginTop: "800px" }}>
+                Log Out
+              </span>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div className="main-content">
         <header>
-            <h1>BUDGET PLANNER</h1>
+          <h1>Budget Planner</h1>
         </header>
-  
+
         <div className="summaryDiv">
-            {/* This holds Income Container */}
-            <IncomeContainer income={income} onIncomeChange={handleIncomeChange} />
-            
-            {/* This Holds Available Balance Container */}
-            <BalanceContainer income={income} totalExpenses={calculateTotalExpenses()} />
-            
-            {/* This Holds Total Expenses Container */}
-            <TotalExpensesContainer totalExpenses={calculateTotalExpenses()} />
+          <IncomeContainer
+            income={income}
+            onIncomeChange={handleIncomeChange}
+          />
+          <BalanceContainer
+            income={income}
+            totalExpenses={calculateTotalExpenses()}
+          />
+          <TotalExpensesContainer totalExpenses={calculateTotalExpenses()} />
+        </div>
+        <div className="expensesContainer">
+          <div className="expensesDiv">
+            <div className="expenses">
+              <p className="head">ADD A NEW EXPENSE</p>
+              <form onSubmit={handleSubmit}>
+                <div className="inputDiv">
+                  <p>Description</p>
+                  <input
+                    type="text"
+                    name="description"
+                    placeholder="Enter a brief description"
+                  />
+                </div>
+                <div className="inputDiv">
+                  <p>Category</p>
+                  <select name="category">
+                    <option value="">Select a category</option>
+                    <option value="Leisure">Leisure</option>
+                    <option value="Basic">Basic</option>
+                    <option value="Savings">Savings</option>
+                  </select>
+                </div>
+                <div className="inputDiv">
+                  <p>Amount</p>
+                  <input
+                    type="number"
+                    name="amount"
+                    placeholder="Enter an amount"
+                  />
+                </div>
+                <div className="inputDiv">
+                  <p>Date</p>
+                  <input type="date" name="date" placeholder="Enter the date" />
+                </div>
+                <button type="submit">Add</button>
+              </form>
+            </div>
+          </div>
         </div>
         
-        {/* This Holds Add Expenses Form */}
-        <div className="expensesDiv">
-            <h2>ADD EXPENSES</h2>
-            <div className="expenses">
-                <form onSubmit ={handleSubmit}>
-                    <div className="inputDiv"><p>Description</p><input type ='test' name ="description" placeholder="Enter a brief description"/></div>
-                    <div className="inputDiv"><p>Category</p><input type ='test' name ="category" placeholder="Basics, Leisure, Savings"/></div>
-                    <div className="inputDiv"><p>Amount</p><input type ='number' name ="amount" placeholder="Enter an amount"/></div>
-                    <div className="inputDiv"><p>Date</p><input type ='date' name ="date" placeholder="Enter the date"/></div>
-                    <button type ='submit'>Add</button>
-                </form>
-            </div>
-        </div>
 
-        {/* This displays transaction history */}
         <div className="historyDiv">
-            <h2>HISTORY</h2>
-            
-            {/* Search box*/}
-            <div>
+          <h2>EXPENSE HISTORY</h2>
+          <div>
             <input
               className="search"
               type="text"
               placeholder="Search expenses..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              />
-            </div>
-              
-              {/* The filteredExpenses holds the filtered results 
-              if no searching happens then the array will contain all expenses */}
-            <div className="history">
-            <table className='table'>
+            />
+          </div>
+          <div className="history">
+            <table className="table">
               <thead>
                 <tr>
                   <th>Description</th>
                   <th>Category</th>
                   <th>Amount</th>
                   <th>Date</th>
+                  <th>Action</th>
                 </tr>
               </thead>
-
               <tbody>
                 {filteredExpenses.map((expense, index) => (
-                    <ExpenseItem
-                      key={index}
-                      description={expense.description}
-                      category={expense.category}
-                      amount={expense.amount}
-                      date={expense.date}
-                      onDelete={() => handleDelete(index)}
-                      />
+                  <ExpenseItem
+                    key={index}
+                    description={expense.description}
+                    category={expense.category}
+                    amount={expense.amount}
+                    date={expense.date}
+                    onDelete={() => handleDelete(index)}
+                  />
                 ))}
               </tbody>
             </table>
-            </div>
+          
+         
+              {/* DownloadButton component */}
+              <DownloadButton expenses={expenses} />
+          </div>
+             {/* ExpenseChart component */}
+             <ExpenseChart expenses={expenses} />
         </div>
+      </div>
     </div>
-
-  )}
-  
-
+  );
+}
 
 export default App;

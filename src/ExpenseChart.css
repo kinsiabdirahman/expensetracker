@@ -1,0 +1,11 @@
+
+.chartDiv {
+    max-width: 300px; /* Set the maximum width for the chart */
+    margin: auto; /* Center the chart horizontally */
+  }
+  
+  #expenseChart {
+    width: 100% !important; 
+    height: auto; 
+  }
+  

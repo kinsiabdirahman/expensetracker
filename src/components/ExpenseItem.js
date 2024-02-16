@@ -15,7 +15,7 @@ function ExpenseItem(props) {
       <td>{amount}</td>
       <td>{date}</td>
 
-      <button onClick={handleDelete}>Delete</button>
+      <button className="delete-button" onClick={handleDelete}>Delete</button>
     </tr>
   );
 }
